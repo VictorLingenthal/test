@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>Egghead Videos</title>
+</head>
+<body>
+
+<div ng-app="scopeApp">
+    <div ng-controller="AppCtrl">
+        <div sender dial="callHome(message, def)"></div>
+        <div sender dial="callHome(message, def)"></div>
+        <div>Controller: {{result}}</div>
+        <div receiver show="{{result}}"></div>
+        <div>Controllerobject: {{obj.a}}</div>
+        <div receiverobject show="{{obj}}"></div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>

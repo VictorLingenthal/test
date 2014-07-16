@@ -1,0 +1,32 @@
+/* Your app's CSS, go crazy, make it your own */
+
+.ionic-logo {
+  display: block;
+  margin: 15px auto;
+  width: 96px;
+  height: 96px;
+}
+.input-box {
+    display: -webkit-flex;
+    -webkit-flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    margin: 20px;
+    width: 200px;
+    border: 1px solid blue;
+    overflow: hidden;
+}
+.input-box > * {
+    -webkit-flex: 0 0 auto;
+}
+.input-box > *:last-child {
+    -webkit-flex: 1 0 20px;
+}
+.input-box input {
+    width: 100%;
+    box-sizing: border-box;
+}
+/*Testing*/
+ul {
+    display: flex;
+    list-style-type: none;
+}
