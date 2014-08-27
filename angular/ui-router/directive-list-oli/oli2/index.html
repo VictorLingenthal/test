@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="styles.css" />
         
         <script>
+            var test = "Hi";
         	function elementFromPointWithinElement(element, x, y) {
         		var ret = null;
         		$(element).children().each(function () {
@@ -24,8 +25,11 @@
         	$(document).on("mousemove", ".ui-draggable-dragging", function (event) {
         		target = elementFromPointWithinElement($("directive2"), event.pageX, event.pageY);
         		$("directive2").children().css("background-color", "");
-        		if (target)
-	        		$(target).css("background-color", "blue");
+        		if (target) {
+                    console.log(test);
+                    $(target).css("background-color", "blue");
+                }
+
         	});
         </script> 
 
@@ -71,7 +75,7 @@
                                     	scope.items2.push(data);
                                     	BetaJS.SyncAsync.eventually(function () {
                                     		scope.$digest();
-                                            console.log("Hi5");
+                                            console.log(test + " dir ");
                                     	});
                                     }
                                 }));
@@ -118,7 +122,7 @@
 	</head>
 
 	<body ng-controller="TestCtrl">
-    <div>Change this text to see if Browser reloaded: 1</div>
+    <div>Change this text to see if Browser reloaded: 2</div>
 		<dir1></dir1>
 		<hr style="margin: 40px"/>
 		<dir2></dir2>
