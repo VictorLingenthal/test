@@ -16,18 +16,20 @@
     			var offset = element.offset();
     			return offset.left <= x && offset.left + element.width() > x && offset.top <= y && offset.top + element.height() > y;
         	}
-        
-        	function elementFromPointWithinElement(element, x, y) {
+        	
+        	function elementWithinElement(element, predicate) {
+        		var args = BetaJS.Functions.getArguments(arguments, 1);
         		var ret = null;
         		$(element).children().each(function () {
-        			if (pointWithinElement(this, x, y))
+        			args[0] = this;
+        			if (predicate.apply(this, args))
         				ret = this;
         		});
         		return ret;
-        	}        
+        	}       
         	
         	$(document).on("mousemove", ".ui-draggable-dragging", function (event) {
-        		target = elementFromPointWithinElement($("directive2"), event.pageX, event.pageY);
+        		target = elementWithinElement($("directive2"), pointWithinElement, event.pageX, event.pageY);
         		$("directive2").children().css("background-color", "");
         		if (target)
 	        		$(target).css("background-color", "blue");
