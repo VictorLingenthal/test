@@ -8,7 +8,26 @@
 		<script src="beta.js"></script>
 		<script src="jquery-touch-gestures.min.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <link rel="stylesheet" href="styles.css" /> 
+        <link rel="stylesheet" href="styles.css" />
+        
+        <script>
+        	function elementFromPointWithinElement(element, x, y) {
+        		var ret = null;
+        		$(element).children().each(function () {
+        			var child = $(this);
+        			var offset = child.offset();
+        			if (offset.left <= x && offset.left + child.width() > x && offset.top <= y && offset.top + child.height() > y)
+        				ret = child;
+        		});
+        		return ret;
+        	}        
+        	$(document).on("mousemove", ".ui-draggable-dragging", function (event) {
+        		target = elementFromPointWithinElement($("directive2"), event.pageX, event.pageY);
+        		$("directive2").children().css("background-color", "");
+        		if (target)
+	        		$(target).css("background-color", "blue");
+        	});
+        </script> 
 
 		<script src="../vendors/angular.js"></script>
 		<script>
