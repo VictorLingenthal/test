@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+
+	<head>
+		<meta charset="utf-8">
+
+		<script src="../vendors/angular.js"></script>
+		<script>
+			function olivers_magic(scope, element, compile) {
+            	element.html(element.html().replace(/(<[/\w]*)directive\w*:{{([^}]+)}}/g, function (match, prefix, variable) {
+            		return prefix + scope[variable];
+            	}));
+		        compile(element.contents())(scope);
+			}
+		
+            var app = angular.module('app', []).controller('TestCtrl', function($scope) {
+                $scope.directive_variable = "dir1";
+            }).directive('main', function ($compile) {
+                return {
+                    restrict : 'E',
+                    templateUrl : "directive_main.html",
+                    replace : false,
+                    link: function (scope, element, attrs) {
+                    	olivers_magic(scope, element, $compile);
+                    }
+                };
+            }).directive('dir1', function() {
+                return {
+                    restrict : 'E',
+                    templateUrl : "directive_dir1.html",
+                    replace : false
+                };
+            }).directive('dir2', function() {
+                return {
+                    restrict : 'E',
+                    templateUrl : "directive_dir2.html",
+                    replace : false
+                };
+            });
+		</script>
+	</head>
+
+	<body ng-controller="TestCtrl">
+		<main></main>
+	</body>
+</html>

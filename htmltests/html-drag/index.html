@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html ng-app="dragApp">
+<head lang="en">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body ng-controller="AppCtrl">
+
+<outer ondrop="drop(event)" ondragover="allowDrop(event)">
+    <inner draggable="true" ondragstart="drag(event)" id="drag2"></inner>
+</outer>
+<outer ondrop="drop(event)" ondragover="allowDrop(event)">
+    <inner draggable="true" ondragstart="drag(event)" id="drag2"></inner>
+</outer>
+<outer ng-repeat="listitem in list" ondrop="drop(event)" ondragover="allowDrop(event)"></outer>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real time web chat</title>
+    <script src="/chat.js"></script>
+    <script src="/jquery-2.1.1.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+<div id="content" style="width: 500px; height: 300px; margin: 0 0 20px 0; border: solid 1px #999; overflow-y: scroll;"></div>
+<div class="controls">
+    <input id="field" style="width:350px;" class="field">
+    <input id="send" type="button" value="send" class="send">
+    <br>
+    <input placeholder="Style" id="style" style="width:150px;" class="stylefield">
+    <input placeholder="Value" id="stylevalue" style="width:150px;" class="stylefield">
+    <input id="stylebutton" type="button" value="Change Enemy Style" class="style">
+</div>
+</body>
+</html>

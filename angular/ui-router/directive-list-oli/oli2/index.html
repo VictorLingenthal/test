@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+
+	<head>
+		<meta charset="utf-8">
+		<script src="jquery.min.js"></script>
+		<script src="jquery-ui.min.js"></script>
+		<script src="beta.js"></script>
+		<script src="jquery-touch-gestures.min.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" href="styles.css" /> 
+
+		<script src="../vendors/angular.js"></script>
+		<script>
+            var app = angular.module('app', []).controller('TestCtrl', function($scope) {
+                $scope.items1 = [{t: "a"}, {t: "b"}, {t: "c"}, {t: "d"}];
+                $scope.items2 = [{t: "1"}, {t: "2"}, {t: "3"}, {t: "4"}];
+            }).directive('dir1', function() {
+                return {
+                    restrict : 'E',
+                    templateUrl : "directive_dir1.html",
+                    replace : true,
+                    link : function(scope, element) {
+                        var bg1 = $("directive1");
+                        var bg2 = $("directive2");
+
+
+                        scope.changebg = function (color) {
+                            bg1.css("background",color);
+                        };
+
+                        BetaJS.SyncAsync.eventually(function() {
+
+                            $(element).find("doodad").each(function() {
+                                BetaJS.UI.Gestures.register(this, BetaJS.UI.Gestures.draggableMachine({}, {
+                                    semi_start : function() {
+                                        var doodad = $(this);
+                                        $(element).find("doodad").addClass("unfocus");
+                                        doodad.removeClass("unfocus");
+                                        doodad.addClass("focus");
+                                    },
+                                    semi_finish : function() {
+                                        $(element).find("doodad").removeClass("unfocus focus");
+                                    },
+                                    finish: function () {
+                                        //bg2.mouseenter(bg2.css("background","blue"));
+                                        //bg2.hover(bg2.css("background","blue"),console.log("Hi"));
+                                    	var data = $(this).data("item");
+                                    	for (var i = 0; i < scope.items1.length; ++i)
+                                    		if (scope.items1[i].t == data.t)
+                                    			scope.items1.splice(i,1);
+                                    	scope.items2.push(data);
+                                    	BetaJS.SyncAsync.eventually(function () {
+                                    		scope.$digest();
+                                            console.log("Hi5");
+                                    	});
+                                    }
+                                }));
+                            });
+                        });
+                    }
+                };
+            }).directive('dir2', function() {
+                return {
+                    restrict : 'E',
+                    templateUrl : "directive_dir2.html",
+                    replace : true,
+                    link : function(scope, element) {
+                        BetaJS.SyncAsync.eventually(function() {
+                            $(element).find("doodad").each(function() {
+                                BetaJS.UI.Gestures.register(this, BetaJS.UI.Gestures.draggableMachine({}, {
+                                    semi_start : function() {
+                                        var doodad = $(this);
+                                        doodad.css("background","red");
+                                        $(element).find("doodad").addClass("unfocus");
+                                        doodad.removeClass("unfocus");
+                                        doodad.addClass("focus");
+                                    },
+                                    semi_finish : function() {
+                                        $(element).find("doodad").removeClass("unfocus focus");
+                                    },
+                                    finish: function () {
+                                        var data = $(this).data("item");
+                                        for (var i = 0; i < scope.items2.length; ++i)
+                                            if (scope.items2[i].t == data.t)
+                                                scope.items2.splice(i,1);
+                                        scope.items1.push(data);
+                                        BetaJS.SyncAsync.eventually(function () {
+                                            scope.$digest();
+                                        });
+                                    }
+                                }));
+                            });
+                        });
+                    }
+                };
+            });
+		</script>
+	</head>
+
+	<body ng-controller="TestCtrl">
+    <div>Change this text to see if Browser reloaded: 1</div>
+		<dir1></dir1>
+		<hr style="margin: 40px"/>
+		<dir2></dir2>
+	</body>
+</html>

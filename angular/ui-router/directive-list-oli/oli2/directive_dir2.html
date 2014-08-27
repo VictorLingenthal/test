@@ -1,0 +1,10 @@
+<directive2
+        ng-init="count = 0;"
+        ng-mouseenter="count = count + 1; changebg('purple')"
+        ng-mouseleave="count = count - 1; changebg('white')">
+	<doodad
+            ng-repeat="item in items2"
+            data-item={{item}}>
+		List 2 - {{item.t}} , 1st: {{count}}
+	</doodad>
+</directive2>

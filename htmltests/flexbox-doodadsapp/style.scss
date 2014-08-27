@@ -1,0 +1,152 @@
+phone {
+  position: relative;
+  display: block;
+  width: 360px;
+  height: 680px;
+  border: 1px solid black;
+}
+/*
+ * Mixins
+ */
+@mixin display-flex {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+@mixin flex-directon($direction) {
+  -webkit-flex-direction: $direction;
+  -ms-flex-direction: $direction;
+  flex-direction: $direction;
+}
+@mixin flex-wrap($wrap) {
+  -webkit-flex-wrap: $wrap;
+  -ms-flex-wrap: $wrap;
+  flex-wrap: $wrap;
+}
+@mixin align-content($align) {
+  -webkit-align-content: $align;
+  -ms-flex-line-pack: $align;
+  align-content: $align;
+}
+@mixin flex-settings($settings) {
+  -webkit-box-flex: $settings;
+  -moz-box-flex: $settings;
+  -webkit-flex: $settings;
+  -ms-flex: $settings;
+  flex: $settings;
+}
+@mixin flex-wrap($settings) {
+  -webkit-flex-wrap: $settings;
+  -ms-flex-wrap: $settings;
+  flex-wrap: $settings;
+}
+@mixin flex($settings) {
+  -webkit-box-flex: $settings;
+  -moz-box-flex: $settings;
+  -webkit-flex: $settings;
+  -ms-flex: $settings;
+  flex: $settings;
+}
+
+
+@-moz-document url-prefix() {
+  .flex-container {
+    width: 100%;
+    -moz-box-sizing: border-box;
+  }
+
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+$listitemheight: 44px;
+$batterybarheight: 20px;
+
+appframe {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+
+  @include display-flex;
+  @include flex-directon(column);
+
+  background: green;
+
+  battery {
+    @include flex(0 0 $batterybarheight);
+  }
+
+  outer {
+
+    @include flex(1 1 0);
+    @include display-flex;
+
+    background: magenta;
+
+    menu, showmenu {
+      transition: all 1s;
+      -webkit-transition: all 1s;
+
+      background: yellow;
+    }
+    menu {@include flex(0 0 0%)}
+    .showmenu {@include flex(0 0 85%)}
+
+
+    app {
+
+      @include flex(1 1 0);
+      @include display-flex;
+      @include flex-directon(column);
+
+      background: yellow;
+
+      main {
+        @include flex(1 1 0);
+        @include display-flex;
+
+        background: white;
+
+        list {
+          @include flex(1 1 0);
+          @include display-flex;
+          @include flex-directon(column);
+          overflow-x: scroll;
+
+          background: red;
+
+          item {
+            @include flex(0 0 44px)
+          }
+
+        }
+
+        tagoverlay, .showtagoverlay .largetagoverlay {
+          transition: all 1s;
+          -webkit-transition: all 1s;
+
+          background: blue;
+        }
+        tagoverlay {@include flex(0 0 0%)}
+        .showtagoverlay {@include flex(0 0 15%)}
+        .largetagoverlay {@include flex(0 0 50%)}
+
+      }
+
+      header, footer {
+        @include flex(0 0 $listitemheight);
+
+        background: grey;
+      }
+
+    }
+  }
+
+}

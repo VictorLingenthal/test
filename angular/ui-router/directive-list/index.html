@@ -1,0 +1,62 @@
+<!doctype html>
+<!-- Our uiRouterSample module defined here -->
+<html lang="en" ng-app="uiRouterSample">
+
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" type="text/css" href="vendors/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="templates/list.css">
+
+    <script src="vendors/angular.js"></script>
+    <script src="vendors/angular-animate.js"></script>
+    <script src="vendors/angular-ui-router.js"></script>
+    <script src="vendors/jquery.min.js"></script>
+    <script src="vendors/jquery-ui.min.js"></script>
+    <script src="vendors/beta.js"></script>
+    <script src="vendors/jquery-touch-gestures.min.js"></script>
+
+      <script src="module.js"></script>
+      <script src="controller.js"></script>
+      <script src="factory.js"></script>
+
+      <script src="directives/list/list.js"></script>
+      <link rel="stylesheet" href="directives/list/list.css">
+      <script src="directives/list/item/item.js"></script>
+      <script src="directives/list/item1/item1.js"></script>
+      <script src="directives/list/item2/item2.js"></script>
+
+    <script src="states.js"></script>
+    <title ng-bind="$state.current.name + ' - ui-router'">ui-router</title>
+  </head>
+
+  <body ng-controller="TestCtrl">
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner"><div class="container">
+        <a class="brand" ui-sref="home">ui-router</a>
+        <ul class="nav">
+          <li ui-sref-active="active"><a ui-sref="list">List - Router</a></li>
+          <li ui-sref-active="active"><a ui-sref="directives">List - Directives</a></li>
+        </ul>
+        <p ui-view="hint" class="navbar-text pull-right"></p>
+      </div></div>
+    </div>
+
+    <div ui-view class="container slide" style="padding-top: 80px;"></div>
+
+    <hr>
+    <pre>
+      <!-- Here's some values to keep an eye on in the sample in order to understand $state and $stateParams -->
+      $state = {{$state.current.name}}
+      $stateParams = {{$stateParams}}
+      $state full url = {{ $state.$current.url.source }}
+      <!-- $state.$current is not a public api, we are using it to
+           display the full url for learning purposes-->
+
+
+
+    </pre>
+  </body>
+</html>

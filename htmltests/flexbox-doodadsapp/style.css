@@ -1,0 +1,145 @@
+phone {
+  position: relative;
+  display: block;
+  width: 360px;
+  height: 680px;
+  border: 1px solid black; }
+
+/*
+ * Mixins
+ */
+@-moz-document url-prefix() {
+  .flex-container {
+    width: 100%;
+    -moz-box-sizing: border-box; } }
+* {
+  margin: 0px;
+  padding: 0px; }
+
+appframe {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background: green; }
+  appframe battery {
+    -webkit-box-flex: 0 0 20px;
+    -moz-box-flex: 0 0 20px;
+    -webkit-flex: 0 0 20px;
+    -ms-flex: 0 0 20px;
+    flex: 0 0 20px; }
+  appframe outer {
+    -webkit-box-flex: 1 1 0;
+    -moz-box-flex: 1 1 0;
+    -webkit-flex: 1 1 0;
+    -ms-flex: 1 1 0;
+    flex: 1 1 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    background: magenta; }
+    appframe outer menu, appframe outer showmenu {
+      transition: all 1s;
+      -webkit-transition: all 1s;
+      background: yellow; }
+    appframe outer menu {
+      -webkit-box-flex: 0 0 0%;
+      -moz-box-flex: 0 0 0%;
+      -webkit-flex: 0 0 0%;
+      -ms-flex: 0 0 0%;
+      flex: 0 0 0%; }
+    appframe outer .showmenu {
+      -webkit-box-flex: 0 0 85%;
+      -moz-box-flex: 0 0 85%;
+      -webkit-flex: 0 0 85%;
+      -ms-flex: 0 0 85%;
+      flex: 0 0 85%; }
+    appframe outer app {
+      -webkit-box-flex: 1 1 0;
+      -moz-box-flex: 1 1 0;
+      -webkit-flex: 1 1 0;
+      -ms-flex: 1 1 0;
+      flex: 1 1 0;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      background: yellow; }
+      appframe outer app main {
+        -webkit-box-flex: 1 1 0;
+        -moz-box-flex: 1 1 0;
+        -webkit-flex: 1 1 0;
+        -ms-flex: 1 1 0;
+        flex: 1 1 0;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        background: white; }
+        appframe outer app main list {
+          -webkit-box-flex: 1 1 0;
+          -moz-box-flex: 1 1 0;
+          -webkit-flex: 1 1 0;
+          -ms-flex: 1 1 0;
+          flex: 1 1 0;
+          display: -webkit-box;
+          display: -moz-box;
+          display: -ms-flexbox;
+          display: -webkit-flex;
+          display: flex;
+          -webkit-flex-direction: column;
+          -ms-flex-direction: column;
+          flex-direction: column;
+          overflow-x: scroll;
+          background: red; }
+          appframe outer app main list item {
+            -webkit-box-flex: 0 0 44px;
+            -moz-box-flex: 0 0 44px;
+            -webkit-flex: 0 0 44px;
+            -ms-flex: 0 0 44px;
+            flex: 0 0 44px; }
+        appframe outer app main tagoverlay, appframe outer app main .showtagoverlay .largetagoverlay {
+          transition: all 1s;
+          -webkit-transition: all 1s;
+          background: blue; }
+        appframe outer app main tagoverlay {
+          -webkit-box-flex: 0 0 0%;
+          -moz-box-flex: 0 0 0%;
+          -webkit-flex: 0 0 0%;
+          -ms-flex: 0 0 0%;
+          flex: 0 0 0%; }
+        appframe outer app main .showtagoverlay {
+          -webkit-box-flex: 0 0 15%;
+          -moz-box-flex: 0 0 15%;
+          -webkit-flex: 0 0 15%;
+          -ms-flex: 0 0 15%;
+          flex: 0 0 15%; }
+        appframe outer app main .largetagoverlay {
+          -webkit-box-flex: 0 0 50%;
+          -moz-box-flex: 0 0 50%;
+          -webkit-flex: 0 0 50%;
+          -ms-flex: 0 0 50%;
+          flex: 0 0 50%; }
+      appframe outer app header, appframe outer app footer {
+        -webkit-box-flex: 0 0 44px;
+        -moz-box-flex: 0 0 44px;
+        -webkit-flex: 0 0 44px;
+        -ms-flex: 0 0 44px;
+        flex: 0 0 44px;
+        background: grey; }

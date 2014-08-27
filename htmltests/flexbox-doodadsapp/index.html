@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="App">
+<head lang="en">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>Egghead Videos</title>
+    <link rel="stylesheet" href="style.css" />
+    <script data-require="jquery" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+</head>
+<body ng-controller="myCtrl">
+<br>
+
+<phone>
+
+    <appframe>
+
+        <battery> Battery </battery>
+
+        <outer>
+
+            <menu ng-class="{showmenu: showmenu}"> Menu </menu>
+
+            <app>
+
+                <header ng-click="showmenu = !showmenu">Header</header>
+
+                <main ng-click="showmenu = false">
+
+                    <list ng-click="showtagoverlay = !showtagoverlay">
+                        <item ng-repeat="item in items">Item: {{item}}</item>
+                    </list>
+
+                    <tagoverlay ng-click="largetagoverlay = !largetagoverlay"
+                                ng-class="{
+                                    showtagoverlay: showtagoverlay && !showmenu,
+                                    largetagoverlay: largetagoverlay && showtagoverlay && !showmenu}">
+                        Tag
+                    </tagoverlay>
+
+                </main>
+
+                <footer>Footer</footer>
+            </app>
+        </outer>
+
+    </appframe>
+
+</phone>
+
+<!--<br>-->
+<!--<a href="abc/.." style="font-size: 40px;">Reload</a>-->
+
+
+<!--<div ng-controller="MyCtrl">-->
+    <!--<scrolly></scrolly>-->
+<!--</div>-->
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>
