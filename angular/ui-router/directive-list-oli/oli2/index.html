@@ -79,8 +79,10 @@
                             hoveredElement.css("background-color", "");
                             if (target) {
                                 hovering = hoveredElement;
+                                console.log(hovering);
                                 hoveredElement.css("background-color", "blue");
                             } else if (!target) {
+                                console.log("hi");
                                 hovering = false;
                             }
 
@@ -103,6 +105,8 @@
                                         $(element).find("doodad").removeClass("unfocus focus");
                                     },
                                     finish: function () {
+                                        console.log(hovering[0]);
+                                        console.log($("directive2")[0]);
                                         if (hovering[0] == $("directive2")[0]) {
                                             var data = $(this).data("item");
                                             for (var i = 0; i < scope.items1.length; ++i)
@@ -132,6 +136,7 @@
                             hoveredElement.css("background-color", "");
                             if (target) {
                                 hovering = hoveredElement;
+//                                console.log(hovering);
                                 hoveredElement.css("background-color", "blue");
                             } else if (!target) {
                                 hovering = false;
@@ -153,6 +158,10 @@
                                         $(element).find("doodad").removeClass("unfocus focus");
                                     },
                                     finish: function () {
+                                        // Strangely here hovering is false already, while with the same code above it is directive2
+                                        console.log(hovering);
+                                        console.log(hovering[0]);
+                                        console.log($("directive1")[0]);
                                         if (hovering[0] == $("directive1")[0]) {
                                             var data = $(this).data("item");
                                             for (var i = 0; i < scope.items2.length; ++i)
