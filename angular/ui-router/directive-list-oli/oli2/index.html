@@ -11,52 +11,87 @@
         <link rel="stylesheet" href="styles.css" />
         
         <script>
-            var test = "Hi";
-        	function elementFromPointWithinElement(element, x, y) {
+        	function pointWithinElement(element, x, y) {
+        		element = $(element);
+    			var offset = element.offset();
+    			return offset.left <= x && offset.left + element.width() > x && offset.top <= y && offset.top + element.height() > y;
+        	}
+
+            function hoverElement(element, predicate) {
+                var args = BetaJS.Functions.getArguments(arguments, 1);
+                var ret = null;
+                $(element).each(function () {
+                    args[0] = this;
+                    if (predicate.apply(this, args))
+                        ret = this;
+                });
+                return ret;
+            }
+
+        	function elementWithinElement(element, predicate) {
+        		var args = BetaJS.Functions.getArguments(arguments, 1);
         		var ret = null;
         		$(element).children().each(function () {
-        			var child = $(this);
-        			var offset = child.offset();
-        			if (offset.left <= x && offset.left + child.width() > x && offset.top <= y && offset.top + child.height() > y)
-        				ret = child;
+        			args[0] = this;
+        			if (predicate.apply(this, args))
+        				ret = this;
         		});
         		return ret;
-        	}        
-        	$(document).on("mousemove", ".ui-draggable-dragging", function (event) {
-        		target = elementFromPointWithinElement($("directive2"), event.pageX, event.pageY);
-        		$("directive2").children().css("background-color", "");
-        		if (target) {
-                    console.log(test);
-                    $(target).css("background-color", "blue");
-                }
-
-        	});
+        	}
         </script> 
 
 		<script src="../vendors/angular.js"></script>
 		<script>
+
+            function replace_directive(scope, element, compile) {
+                element.html(element.html().replace(/(<[/\w]*)directive\w*:{{([^}]+)}}/g, function (match, prefix, variable) {
+                    return prefix + scope[variable];
+                }));
+                compile(element.contents())(scope);
+            }
+
+            var hovering = false;
+
             var app = angular.module('app', []).controller('TestCtrl', function($scope) {
                 $scope.items1 = [{t: "a"}, {t: "b"}, {t: "c"}, {t: "d"}];
                 $scope.items2 = [{t: "1"}, {t: "2"}, {t: "3"}, {t: "4"}];
+                $scope.directive_variable = "directive1";
+            }).directive('diMain', function ($compile) {
+                return {
+                    restrict : 'E',
+                    templateUrl : "main.html",
+                    replace : true,
+                    link: function (scope, element, attrs) {
+                        replace_directive(scope, element, $compile);
+                    }
+                };
             }).directive('dir1', function() {
                 return {
                     restrict : 'E',
                     templateUrl : "directive_dir1.html",
                     replace : true,
                     link : function(scope, element) {
-                        var bg1 = $("directive1");
-                        var bg2 = $("directive2");
 
+                        var hoveredElement = $("directive1");
+                        $(document).on("mousemove", ".ui-draggable-dragging", function (event) {
+                            target = hoverElement(hoveredElement, pointWithinElement, event.pageX, event.pageY);
+                            hoveredElement.css("background-color", "");
+                            if (target) {
+                                hovering = hoveredElement;
+                                hoveredElement.css("background-color", "blue");
+                            }
 
-                        scope.changebg = function (color) {
-                            bg1.css("background",color);
-                        };
+                        }).on("mouseup", function () {
+                            hovering = false;
+                            hoveredElement.css("background-color", "");
+                        });
 
                         BetaJS.SyncAsync.eventually(function() {
 
                             $(element).find("doodad").each(function() {
                                 BetaJS.UI.Gestures.register(this, BetaJS.UI.Gestures.draggableMachine({}, {
                                     semi_start : function() {
+
                                         var doodad = $(this);
                                         $(element).find("doodad").addClass("unfocus");
                                         doodad.removeClass("unfocus");
@@ -66,17 +101,16 @@
                                         $(element).find("doodad").removeClass("unfocus focus");
                                     },
                                     finish: function () {
-                                        //bg2.mouseenter(bg2.css("background","blue"));
-                                        //bg2.hover(bg2.css("background","blue"),console.log("Hi"));
-                                    	var data = $(this).data("item");
-                                    	for (var i = 0; i < scope.items1.length; ++i)
-                                    		if (scope.items1[i].t == data.t)
-                                    			scope.items1.splice(i,1);
-                                    	scope.items2.push(data);
-                                    	BetaJS.SyncAsync.eventually(function () {
-                                    		scope.$digest();
-                                            console.log(test + " dir ");
-                                    	});
+                                        if (hovering[0] == $("directive2")[0]) {
+                                            var data = $(this).data("item");
+                                            for (var i = 0; i < scope.items1.length; ++i)
+                                                if (scope.items1[i].t == data.t)
+                                                    scope.items1.splice(i, 1);
+                                            scope.items2.push(data);
+                                            BetaJS.SyncAsync.eventually(function () {
+                                                scope.$digest();
+                                            });
+                                        }
                                     }
                                 }));
                             });
@@ -89,12 +123,26 @@
                     templateUrl : "directive_dir2.html",
                     replace : true,
                     link : function(scope, element) {
+
+                        var hoveredElement = $("directive2");
+                        $(document).on("mousemove", ".ui-draggable-dragging", function (event) {
+                            target = hoverElement(hoveredElement, pointWithinElement, event.pageX, event.pageY);
+                            hoveredElement.css("background-color", "");
+                            if (target) {
+                                hovering = hoveredElement;
+                                console.log(hovering);
+                                hoveredElement.css("background-color", "blue");
+                            }
+                        }).on("mouseup", function () {
+                            hovering = false;
+                            hoveredElement.css("background-color", "");
+                        });
+
                         BetaJS.SyncAsync.eventually(function() {
                             $(element).find("doodad").each(function() {
                                 BetaJS.UI.Gestures.register(this, BetaJS.UI.Gestures.draggableMachine({}, {
                                     semi_start : function() {
                                         var doodad = $(this);
-                                        doodad.css("background","red");
                                         $(element).find("doodad").addClass("unfocus");
                                         doodad.removeClass("unfocus");
                                         doodad.addClass("focus");
@@ -103,14 +151,16 @@
                                         $(element).find("doodad").removeClass("unfocus focus");
                                     },
                                     finish: function () {
-                                        var data = $(this).data("item");
-                                        for (var i = 0; i < scope.items2.length; ++i)
-                                            if (scope.items2[i].t == data.t)
-                                                scope.items2.splice(i,1);
-                                        scope.items1.push(data);
-                                        BetaJS.SyncAsync.eventually(function () {
-                                            scope.$digest();
-                                        });
+                                        if (hovering[0] == $("directive1")[0]) {
+                                            var data = $(this).data("item");
+                                            for (var i = 0; i < scope.items2.length; ++i)
+                                                if (scope.items2[i].t == data.t)
+                                                    scope.items2.splice(i,1);
+                                            scope.items1.push(data);
+                                            BetaJS.SyncAsync.eventually(function () {
+                                                scope.$digest();
+                                            });
+                                        }
                                     }
                                 }));
                             });
@@ -122,9 +172,7 @@
 	</head>
 
 	<body ng-controller="TestCtrl">
-    <div>Change this text to see if Browser reloaded: 2</div>
-		<dir1></dir1>
-		<hr style="margin: 40px"/>
-		<dir2></dir2>
+    <div>Change this text to see if Browser reloaded: 1</div>
+        <di-main></di-main>
 	</body>
 </html>

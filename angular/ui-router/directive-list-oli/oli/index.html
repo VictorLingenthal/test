@@ -12,7 +12,7 @@
             	}));
 		        compile(element.contents())(scope);
 			}
-		
+
             var app = angular.module('app', []).controller('TestCtrl', function($scope) {
                 $scope.directive_variable = "dir1";
             }).directive('main', function ($compile) {
