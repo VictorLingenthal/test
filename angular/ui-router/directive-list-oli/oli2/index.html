@@ -55,8 +55,10 @@
             var app = angular.module('app', []).controller('TestCtrl', function($scope) {
                 $scope.items1 = [{t: "a"}, {t: "b"}, {t: "c"}, {t: "d"}];
                 $scope.items2 = [{t: "1"}, {t: "2"}, {t: "3"}, {t: "4"}];
-                $scope.directive_variable1 = "directive1";
+
+                $scope.directive_variable1 = "dir1";
                 $scope.directive_variable2 = "directive2";
+
             }).directive('diMain', function ($compile) {
                 return {
                     restrict : 'E',
@@ -78,12 +80,13 @@
                             target = hoverElement(hoveredElement, pointWithinElement, event.pageX, event.pageY);
                             hoveredElement.css("background-color", "");
                             if (target) {
+                                console.log("Log1:" + target);
                                 hovering = hoveredElement;
                                 console.log(hovering);
                                 hoveredElement.css("background-color", "blue");
                             } else if (!target) {
-                                console.log("hi");
-                                hovering = false;
+//                                console.log("hi");
+//                                hovering = false;
                             }
 
                         }).on("mouseup", function () {
@@ -135,11 +138,13 @@
                             target = hoverElement(hoveredElement, pointWithinElement, event.pageX, event.pageY);
                             hoveredElement.css("background-color", "");
                             if (target) {
+                                console.log("Log2:" + target);
                                 hovering = hoveredElement;
 //                                console.log(hovering);
                                 hoveredElement.css("background-color", "blue");
                             } else if (!target) {
-                                hovering = false;
+                                console.log("Set Target back");
+//                                hovering = false;
                             }
                         }).on("mouseup", function () {
                             hoveredElement.css("background-color", "");
