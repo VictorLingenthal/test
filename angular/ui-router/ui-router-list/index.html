@@ -9,6 +9,10 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" type="text/css" href="templates/list.css">
 
+    <script src="vendors/beta.js"></script>
+    <script src="vendors/jquery.min.js"></script>
+    <script src="vendors/jquery-ui.min.js"></script>
+
     <script src="vendors/angular.js"></script>
     <script src="vendors/angular-animate.js"></script>
     <script src="vendors/angular-ui-router.js"></script>
@@ -16,6 +20,7 @@
       <script src="module.js"></script>
       <script src="controller.js"></script>
       <script src="factory.js"></script>
+      <script src="dragging.js"></script>
 
       <script src="directives/list/list.js"></script>
       <link rel="stylesheet" href="directives/list/list.css">
@@ -28,6 +33,15 @@
   </head>
 
   <body ng-controller="TestCtrl">
+
+  <style>
+      .foreign-hover {
+          background-color: purple;
+      }
+      .self-hover {
+          background-color: blue;
+      }
+  </style>
 
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner"><div class="container">
