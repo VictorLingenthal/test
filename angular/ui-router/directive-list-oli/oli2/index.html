@@ -12,12 +12,8 @@
 		<script src="../vendors/angular.js"></script>
 		<script src="index.js"></script>
 		<style>
-			.foreign-hover {
-				background-color: purple;
-			}
-			.self-hover {
-				background-color: blue;
-			}
+			.foreign-hover {background-color: purple}
+			.self-hover {background-color: blue}
 		</style>
 		<script>
             var app = angular.module('app', []).controller('TestCtrl', function($scope) {
@@ -39,14 +35,14 @@
             }).directive('dir1', function() {
                 return {
                     restrict : 'E',
-                    templateUrl : "directive_dir1.html",
+                    templateUrl : "directive_dir.html",
                     replace : true,
                     link : function(scope, element) {
 						add_hover_target(element, element, "self-hover");
 						add_hover_target(element, "directive2", "foreign-hover");
 						draggable_list(element, "doodad", "focus", "unfocus", {
 							finish: function () {
-								droppable_list(element, this, $("directive2"), scope.items1, scope.items2, scope);
+								droppable_list(element, this, $("directive1"), scope.items3, scope.items4, scope);
                         }});
                     }
                 };
@@ -61,7 +57,8 @@
 						draggable_list(element, "doodad", "focus", "unfocus", {
 							finish: function () {
 								droppable_list(element, this, $("directive1"), scope.items2, scope.items1, scope);
-                        }});
+                            }
+                        });
                     }
                 };
             });

@@ -26,7 +26,17 @@ function replace_directive(scope, element, compile) {
 
 function draggable_list(list, items, focus_class, unfocus_class, options) {
 	BetaJS.SyncAsync.eventually(function() {
+        console.log("Number: 23");
+        console.log("List: ");
+        console.log(list);
+        console.log("Items: ");
+        console.log(items);
+        console.log("$List: ");
+        console.log($(list));
+        console.log("Complete: ");
+        console.log($(list).find(items));
 		$(list).find(items).each(function() {
+            console.log("24");
 	        BetaJS.UI.Gestures.register(this, BetaJS.UI.Gestures.draggableMachine({}, BetaJS.Objs.extend(options, {
 	            semi_start : function() {
 	                var item = $(this);

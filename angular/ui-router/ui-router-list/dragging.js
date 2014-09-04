@@ -25,10 +25,22 @@ function replace_directive(scope, element, compile) {
 
 
 function draggable_list(list, items, focus_class, unfocus_class, options) {
-	BetaJS.SyncAsync.eventually(function() {
+    console.log("Before Eventually");
+	//BetaJS.SyncAsync.eventually(function() {
+        console.log("After Eventually");
+        console.log("List: ");
+        console.log(list);
+        console.log("Items: ");
+        console.log(items);
+        console.log("$(list): ");
+        console.log($(list));
+        console.log("$(list).find(items): ");
+        console.log($(list).find(items));
 		$(list).find(items).each(function() {
+            console.log("After List Found");
 	        BetaJS.UI.Gestures.register(this, BetaJS.UI.Gestures.draggableMachine({}, BetaJS.Objs.extend(options, {
 	            semi_start : function() {
+                    console.log("Gesture Started");
 	                var item = $(this);
 	                $(list).find(items).addClass(unfocus_class);
 	                item.removeClass(unfocus_class);
@@ -40,7 +52,7 @@ function draggable_list(list, items, focus_class, unfocus_class, options) {
 	            }
 	        })));
 	    });	
-	});
+	//});
 }
 
 function add_hover_target(element, target, hover_class) {
