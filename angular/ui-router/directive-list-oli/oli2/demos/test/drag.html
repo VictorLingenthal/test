@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="../jquery.min.js"></script>
+        <script src="../beta.js"></script>
+        <script src="src/elements/element_modifier.js"></script>
+        <script src="src/elements/element_support.js"></script>
+        <script src="src/elements/element_animator.js"></script>
+        <script src="src/events/mouse_events.js"></script>
+        <script src="src/interactions/interactions.js"></script>
+        <script src="src/interactions/drag.js"></script>
+        <script src="src/interactions/drop.js"></script>
+        <link rel="stylesheet" href="../styles.css" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    </head>
+    <body>
+    	<div id="dragme" style="width:200px; height:50px; background-color: gray">
+    		Drag Me
+    	</div>
+    	<div class="doodads">
+	        <div class="doodad" id="floater" style="display:none"><div class="inner" style="height: 25px; background-color: #EEEEEE">Floater</div></div>
+	        <div class="doodad"><div class="inner">Doodad 1</div></div>
+	        <div class="doodad"><div class="inner">Doodad 2</div></div>
+	        <div class="doodad"><div class="inner">Doodad 3</div></div>
+	        <div class="doodad"><div class="inner">Doodad 4</div></div>
+	        <div class="doodad"><div class="inner" id="test">Doodad 5</div></div>
+	        <div class="doodad"><div class="inner">Doodad 6</div></div>
+	        <div class="doodad"><div class="inner">Doodad 7</div></div>
+	        <div class="doodad"><div class="inner">Doodad 8</div></div>
+	        <div class="doodad"><div class="inner">Doodad 9</div></div>
+	        <div class="doodad"><div class="inner">Doodad 10</div></div>
+	        <div class="doodad"><div class="inner">Doodad 11</div></div>
+	        <div class="doodad"><div class="inner">Doodad 12</div></div>
+	        <div class="doodad"><div class="inner">Doodad 13</div></div>
+	        <div class="doodad"><div class="inner">Doodad 14</div></div>
+	        <div class="doodad"><div class="inner">Doodad 15</div></div>
+	        <div class="doodad"><div class="inner">Doodad 16</div></div>
+	        <div class="doodad"><div class="inner">Doodad 17</div></div>
+	        <div class="doodad"><div class="inner">Doodad 18</div></div>
+	        <div class="doodad"><div class="inner">Doodad 19</div></div>
+	        <div class="doodad"><div class="inner">Doodad 20</div></div>
+    	</div>
+        <script>  
+        	var element = $("#dragme"); 
+        	var drag = new BetaJS.UI.Interactions.Drag($("#dragme"), {
+        		droppable: true,
+        		clone_element: true,
+        		enabled: true,
+        		remove_element_on_drop: false,
+        		//draggable_y: false,
+        	});
+        	drag.on("start", function (dr) {
+        		dr.modifier.css("background-color", "blue");
+        		dr.actionable_modifier.css("background-color", "red");
+        	});
+        	/*
+        	var floater = $("#floater");
+        	$(".doodads").on("drag-hover", function (event) {
+        		floater.css("display", "");
+        		var data = event.originalEvent.detail;
+        		var coords = data.page_coords;
+        		var child = BetaJS.UI.Elements.Support.childContainingElement($(".doodads"), data.underneath);
+        		if (!child)
+        			return;
+        		var child = $(child);
+        		var bb = BetaJS.UI.Elements.Support.elementBoundingBox(child);
+        		if (child.get(0) == floater.get(0))
+        			return;
+        		var margin = Math.floor((bb.bottom - bb.top + 1) * 0.2);
+        		var inner = bb.top + margin <= coords.y && coords.y <= bb.bottom - margin;
+				if (!inner) {
+					if (coords.y < bb.top + margin)
+						floater.insertBefore(child);
+					else
+						floater.insertAfter(child);
+				}        		
+        	});
+        	$(".doodads").on("drag-leave", function (event) {
+        		var data = event.originalEvent.detail;
+        		var coords = data.page_coords;
+        		if (!BetaJS.UI.Elements.Support.pointWithinElement(coords.x, coords.y, $(".doodads")))
+        			floater.css("display", "none");
+        	});
+        	$(".doodads").on("drag-stop", function (event) {
+       			floater.css("display", "none");
+        	});
+        	*/
+        	$(".inner").each(function () {
+        	var element = $(this);
+        	//var element = $("#test");
+        	var drop = new BetaJS.UI.Interactions.Drop(element, {
+        		enabled: true,
+        		droppable: function () {
+        			return true;
+        		},
+        		bounding_box: function (bb) {
+        			var height = bb.bottom - bb.top + 1;
+        			var margin = Math.floor(height * 0.2);
+        			bb.top += margin;
+        			bb.bottom -= margin;
+        			return bb;
+        		}
+        	});
+        	drop.on("hover", function (dr) {
+        		dr.modifier.css("background-color", "green");
+        	});
+        	drop.on("hover-invalid", function (dr) {
+        		dr.modifier.css("background-color", "gray");
+        	});
+        	drop.on("dropped", function () {
+        		//alert("yeah");
+        	});
+        	        		
+        	});
+        	// page vs screen
+        </script>    
+    </body>
+</html>
