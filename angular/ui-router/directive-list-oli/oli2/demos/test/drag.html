@@ -15,7 +15,7 @@
     </head>
     <body>
     	<div id="dragme" style="width:200px; height:50px; background-color: gray">
-    		Drag Me
+    		Drag Me 1
     	</div>
     	<div class="doodads">
 	        <div class="doodad" id="floater" style="display:none"><div class="inner" style="height: 25px; background-color: #EEEEEE">Floater</div></div>
@@ -40,19 +40,24 @@
 	        <div class="doodad"><div class="inner">Doodad 19</div></div>
 	        <div class="doodad"><div class="inner">Doodad 20</div></div>
     	</div>
-        <script>  
-        	var element = $("#dragme"); 
-        	var drag = new BetaJS.UI.Interactions.Drag($("#dragme"), {
-        		droppable: true,
-        		clone_element: true,
-        		enabled: true,
-        		remove_element_on_drop: false,
-        		//draggable_y: false,
-        	});
-        	drag.on("start", function (dr) {
-        		dr.modifier.css("background-color", "blue");
-        		dr.actionable_modifier.css("background-color", "red");
-        	});
+        <script>
+            $(".inner").each(function () {
+                var element = $(this);
+                //var element = $("#dragme");
+                //var drag = new BetaJS.UI.Interactions.Drag($("#dragme"), {
+                var drag = new BetaJS.UI.Interactions.Drag(element, {
+                    droppable: true,
+                    clone_element: true,
+                    enabled: true,
+                    remove_element_on_drop: false
+                    //draggable_y: false,
+
+                });
+                drag.on("start", function (dr) {
+                    dr.modifier.css("background-color", "blue");
+                    dr.actionable_modifier.css("background-color", "red");
+                });
+            });
         	/*
         	var floater = $("#floater");
         	$(".doodads").on("drag-hover", function (event) {
@@ -86,30 +91,30 @@
         	});
         	*/
         	$(".inner").each(function () {
-        	var element = $(this);
-        	//var element = $("#test");
-        	var drop = new BetaJS.UI.Interactions.Drop(element, {
-        		enabled: true,
-        		droppable: function () {
-        			return true;
-        		},
-        		bounding_box: function (bb) {
-        			var height = bb.bottom - bb.top + 1;
-        			var margin = Math.floor(height * 0.2);
-        			bb.top += margin;
-        			bb.bottom -= margin;
-        			return bb;
-        		}
-        	});
-        	drop.on("hover", function (dr) {
-        		dr.modifier.css("background-color", "green");
-        	});
-        	drop.on("hover-invalid", function (dr) {
-        		dr.modifier.css("background-color", "gray");
-        	});
-        	drop.on("dropped", function () {
-        		//alert("yeah");
-        	});
+        	    var element = $(this);
+        	    //var element = $("#test");
+                var drop = new BetaJS.UI.Interactions.Drop(element, {
+                    enabled: true,
+                    droppable: function () {
+                        return true;
+                    },
+                    bounding_box: function (bb) {
+                        var height = bb.bottom - bb.top + 1;
+                        var margin = Math.floor(height * 0.2);
+                        bb.top += margin;
+                        bb.bottom -= margin;
+                        return bb;
+                    }
+                });
+                drop.on("hover", function (dr) {
+                    dr.modifier.css("background-color", "green");
+                });
+                drop.on("hover-invalid", function (dr) {
+                    dr.modifier.css("background-color", "gray");
+                });
+                drop.on("dropped", function () {
+                    //alert("yeah");
+                });
         	        		
         	});
         	// page vs screen

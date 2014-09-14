@@ -9,9 +9,16 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" type="text/css" href="templates/list.css">
 
-    <script src="vendors/beta.js"></script>
     <script src="vendors/jquery.min.js"></script>
-    <script src="vendors/jquery-ui.min.js"></script>
+    <script src="vendors/beta.js"></script>
+
+    <script src="src/elements/element_modifier.js"></script>
+    <script src="src/elements/element_support.js"></script>
+    <script src="src/elements/element_animator.js"></script>
+    <script src="src/events/mouse_events.js"></script>
+    <script src="src/interactions/interactions.js"></script>
+    <script src="src/interactions/drag.js"></script>
+    <script src="src/interactions/drop.js"></script>
 
     <script src="vendors/angular.js"></script>
     <script src="vendors/angular-animate.js"></script>
@@ -46,7 +53,7 @@
         <a class="brand" ui-sref="home">ui-router</a>
         <ul class="nav">
           <li ng-class="{active: $state.includes('contacts')}"><a ui-sref="contacts.list">Contacts</a></li>
-          <li ui-sref-active="active"><a ui-sref="about">About</a></li>
+          <li id="dragme" ui-sref-active="active"><a ui-sref="about">About2</a></li>
           <li ui-sref-active="active"><a ui-sref="list">List - Router</a></li>
           <li ui-sref-active="active"><a ui-sref="directives">List - Directives</a></li>
         </ul>
@@ -55,6 +62,21 @@
     </div>
 
     <div ui-view class="container slide" style="padding-top: 80px;"></div>
+  <script>
+      var element = $("#dragme");
+
+      var drag = new BetaJS.UI.Interactions.Drag(element, {
+          droppable: true,
+          clone_element: true,
+          enabled: true,
+          remove_element_on_drop: false
+          //draggable_y: false,
+      });
+      drag.on("start", function (dr) {
+          dr.modifier.css("background-color", "blue");
+          dr.actionable_modifier.css("background-color", "red");
+      });
+  </script>
 
     <hr>
     <pre>
