@@ -68,7 +68,7 @@ list {
     }
   }
 
-  menu {
+  menu, dimenu {
     $menuheight: 44px;
 
     @include flex-settings(0 0 $menuheight);

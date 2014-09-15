@@ -35,7 +35,7 @@ list {
       padding-left: 22px;
       vertical-align: middle;
       line-height: 44px; }
-  list menu {
+  list menu, list dimenu {
     -webkit-box-flex: 0 0 44px;
     -moz-box-flex: 0 0 44px;
     -webkit-flex: 0 0 44px;
@@ -48,7 +48,7 @@ list {
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex; }
-    list menu mi {
+    list menu mi, list dimenu mi {
       -webkit-box-flex: 1 1 0;
       -moz-box-flex: 1 1 0;
       -webkit-flex: 1 1 0;
