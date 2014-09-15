@@ -39,10 +39,7 @@ angular.module('uiRouterSample')
             },
             scope: {
             },
-            link: function(scope,$state) {
-
-
-
+            link: function(scope) {
             }
         };
     });
