@@ -1,16 +1,13 @@
 angular.module('uiRouterSample')
 
-    .directive('diItem1', function () {
+    .directive('diItem2', function () {
         return {
             restrict: 'E',
-            templateUrl: "directives/list/item1/item1.html",
+            templateUrl: "directives/list/item2/item2.html",
             replace: true,
             scope: {num: "@"},
-            link: function(scope, element) {
-
+            link: function(scope) {
                 scope.number = scope.num || "none";
-
-
             }
         };
     });
