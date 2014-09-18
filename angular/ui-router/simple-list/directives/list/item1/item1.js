@@ -56,7 +56,7 @@ angular.module('uiRouterSample')
                         var element = event.element;
                         var parent = element.parent();
                         var x = parseInt(element.css("left"), 10);
-                        var w = document.width;
+                        var w = parseInt(element.css("width"), 10);
                         var a = {};
                         for (var cls in actions) {
                             a = actions[cls];
@@ -70,7 +70,7 @@ angular.module('uiRouterSample')
                         var element = event.element;
                         var parent = element.parent();
                         var x = parseInt(element.css("left"), 10);
-                        var w = document.width;
+                        var w = parseInt(element.css("width"), 10);
                         for (var cls in actions) {
                             a = actions[cls];
                             if ((!a.less || x <= w * a.less) && (!a.greater || x >= w * a.greater)) {
