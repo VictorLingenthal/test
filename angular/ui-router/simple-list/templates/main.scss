@@ -40,7 +40,7 @@
   flex-wrap: $settings;
 }
 
-list {
+app {
   margin: 20px;
   @include display-flex;
   @include flex-directon(column);
@@ -48,23 +48,41 @@ list {
   height: 320px;
   border: 1px solid black;
 
-  main {
+  content {
     @include flex-settings(1 1 0);
-    @include flex-directon(column);
-    overflow: hidden;
-    overflow-y: scroll;
+    @include display-flex;
 
-    li {
-      $liheight: 44px;
+    list {
+      @include flex-settings(1 1 0);
+      @include flex-directon(column);
+      overflow: hidden;
+      overflow-y: scroll;
 
-      @include flex-settings(0 0 $liheight);
-      border-bottom: 1px solid #d3d3d3;
-      height: $liheight;
-      list-style: none;
-      margin: 0px;
-      padding-left: $liheight/2;
-      vertical-align: middle;
-      line-height: $liheight;
+      .archive {background-color: yellow}
+      .delete {background-color: red}
+      .other {background-color: #C58917}
+
+      dilist, item {
+        @include display-flex;
+        @include flex-directon(column);
+
+        item1, item2 {
+          $liheight: 44px;
+
+          @include flex-settings(0 0 $liheight);
+          border-bottom: 1px solid #d3d3d3;
+          height: $liheight;
+          list-style: none;
+          margin: 0px;
+          padding-left: $liheight/2;
+          vertical-align: middle;
+          line-height: $liheight;
+        }
+      }
+    }
+
+    overlay {
+      @include flex-settings(0 0 40px);
     }
   }
 
