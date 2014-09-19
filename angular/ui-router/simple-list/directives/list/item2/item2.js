@@ -8,7 +8,7 @@ angular.module('uiRouterSample')
             scope: {num: "@"},
             link: function(scope,element) {
                 scope.number = scope.num || "none";
-
+                // what should happen when we drop onto an item? for now, we simply replace it's number with the original one as an example
                 var drop = new BetaJS.UI.Interactions.Drop(element, {
                     enabled: true,
                     droppable: function () {
@@ -28,8 +28,10 @@ angular.module('uiRouterSample')
                 drop.on("hover-invalid", function (dr) {
                     dr.modifier.css("background-color", "gray");
                 });
-                drop.on("dropped", function () {
-//                    alert("yeah");
+                drop.on("dropped", function (event) {
+                    console.log("Dropped Data: " + JSON.stringify(event.source.data));
+                    scope.number = event.source.data.number;
+                    scope.$digest();
                 });
             }
         };

@@ -6,31 +6,35 @@ angular.module('uiRouterSample')
             templateUrl: "directives/list/item1/item1.html",
             replace: true,
             scope: {num: "@"},
-            link: function(scope, element) {
-
+            link: function(scope, element) {            	
                 scope.number = scope.num || "none";
 
-                BetaJS.UI.Interactions.Drag.multiple(element, {
+                var drag = new BetaJS.UI.Interactions.Drag(element, {
                     enabled : true,
                     clone_element: true,
-                    start_event: null
-                }, function (drag) {
-                    var drag_gesture = new BetaJS.UI.Gestures.Gesture(drag.element(), BetaJS.UI.Gestures.defaultGesture({
-                        mouse_up_activate: false,
-                        wait_time: 250,
-                        wait_activate: true,
-                        disable_x: 10,
-                        disable_y: 10,
-                        enable_x: -1,
-                        enable_y: -1,
-                    }));
-                    drag_gesture.on("activate", drag.start, drag);
-                    drag_gesture.on("deactivate", drag.stop, drag);
-                    drag.on("move", function (event) {
-                        event.actionable_modifier.csscls("focus", true);
-                        event.modifier.csscls("unfocus", true);
-                    });
+                    start_event: null,
+                    droppable: true
+                }, {
+                	// add any other data you want to carry along
+                	number: scope.number
                 });
+            
+                var drag_gesture = new BetaJS.UI.Gestures.Gesture(drag.element(), BetaJS.UI.Gestures.defaultGesture({
+                    mouse_up_activate: false,
+                    wait_time: 250,
+                    wait_activate: true,
+                    disable_x: 10,
+                    disable_y: 10,
+                    enable_x: -1,
+                    enable_y: -1,
+                }));
+                drag_gesture.on("activate", drag.start, drag);
+                drag_gesture.on("deactivate", drag.stop, drag);
+                drag.on("move", function (event) {
+                    event.actionable_modifier.csscls("focus", true);
+                    event.modifier.csscls("unfocus", true);
+                });
+
                 var actions = {
                     "other": {less: -1/4},
                     "archive": {greater: 1/4, less: 1/3},
@@ -92,7 +96,7 @@ angular.module('uiRouterSample')
                 click_gesture.on("activate", function () {
                     alert("click");
                 });
-
+/*
                 var drop = new BetaJS.UI.Interactions.Drop(element, {
                     enabled: true,
                     droppable: function () {
@@ -115,7 +119,7 @@ angular.module('uiRouterSample')
                 drop.on("dropped", function () {
 //                    alert("yeah");
                 });
-
+*/
             }
         };
     });
