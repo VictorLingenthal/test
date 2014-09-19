@@ -20,12 +20,22 @@ angular.module('uiRouterSample')
 
             .state('main.page1', {
                 url: 'page1',
-                templateUrl: 'templates/page1.html'
+                templateUrl: 'templates/page.html',
+                controller: ['$scope', '$stateParams',
+                    function (  $scope,   $stateParams) {
+                        $scope.page = 1;
+                        $scope.length = 12;
+                    }]
             })
 
             .state('main.page2', {
                 url: 'page2',
-                templateUrl: 'templates/page2.html'
+                templateUrl: 'templates/page.html',
+                controller: ['$scope', '$stateParams',
+                    function (  $scope,   $stateParams) {
+                        $scope.page = 2;
+                        $scope.length = 12;
+                    }]
             })
 
       }]);

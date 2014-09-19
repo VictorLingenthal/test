@@ -13,14 +13,16 @@
 		        compile(element.contents())(scope);
 			}
 
-            var app = angular.module('app', []).controller('TestCtrl', function($scope) {
-                $scope.directive_name = "dir1";
-            }).directive('main', function ($compile) {
+            var app = angular.module('app', [])
+              .directive('main', function ($compile) {
                 return {
                     restrict : 'E',
                     templateUrl : "directive_main.html",
                     replace : false,
-                    link: function (scope, element, attrs) {
+                    controller: function ($scope) {
+                        $scope.dir_name = "dir2";
+                    },
+                    link: function (scope, element) {
                         replace_directive(scope, element, $compile);
                     }
                 };
@@ -40,7 +42,7 @@
 		</script>
 	</head>
 
-	<body ng-controller="TestCtrl">
+	<body>
 		<main></main>
 	</body>
 </html>

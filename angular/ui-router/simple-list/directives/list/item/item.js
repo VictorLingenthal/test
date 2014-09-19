@@ -1,6 +1,13 @@
+function replace_directive(scope, element, compile) {
+    element.html(element.html().replace(/(<[/\w]*)directive\w*:{{([^}]+)}}/g, function (match, prefix, variable) {
+        return prefix + scope[variable];
+    }));
+    compile(element.contents())(scope);
+}
+
 angular.module('uiRouterSample')
 
-    .directive('diItem', function () {
+    .directive('diItem', function ($compile) {
         return {
             restrict: 'E',
             templateUrl: "directives/list/item/item.html",
@@ -9,15 +16,12 @@ angular.module('uiRouterSample')
                 num: "@",
                 item: "@"
             },
+            controller: function($scope) {
+                $scope.dir_name = "di-item" + $scope.item;
+            },
             link: function(scope,element) {
+                replace_directive(scope, element, $compile);
                 scope.number = scope.num || "none";
-//                add_hover_target(element, element, "self-hover");
-//                add_hover_target(element, "dilist", "foreign-hover");
-//                draggable_list(element, "item", "focus", "unfocus", {
-////                    finish: function () {
-////                        droppable_list(element, this, $("dilist"), scope.items1, scope.items2, scope);
-////                    }
-//                });
             }
         };
     });
