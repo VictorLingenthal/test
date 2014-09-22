@@ -96,7 +96,7 @@ angular.module('uiRouterSample')
                 click_gesture.on("activate", function () {
                     alert("click");
                 });
-/*
+
                 var drop = new BetaJS.UI.Interactions.Drop(element, {
                     enabled: true,
                     droppable: function () {
@@ -119,7 +119,7 @@ angular.module('uiRouterSample')
                 drop.on("dropped", function () {
 //                    alert("yeah");
                 });
-*/
+
             }
         };
     });

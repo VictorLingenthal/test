@@ -56,25 +56,26 @@ app {
       @include flex-settings(1 1 0);
       @include display-flex;
       @include flex-directon(column);
-      overflow: hidden;
-      overflow-y: scroll;
-
-      .archive {background-color: yellow}
-      .delete {background-color: red}
-      .other {background-color: #C58917}
 
       dilist {
         @include flex-settings(1 1 0);
         @include display-flex;
         @include flex-directon(column);
 
+        overflow-y: scroll;
+
+        .archive {background-color: yellow}
+        .delete {background-color: red}
+        .other {background-color: #C58917}
+
         item {
           $liheight: 44px;
           @include flex-settings(0 0 $liheight);
           @include display-flex;
 
-          item1, item2 {
+          overflow: hidden;
 
+          item1, item2 {
             @include flex-settings(1 1 0);
             border-bottom: 1px solid #d3d3d3;
             height: $liheight;
@@ -90,6 +91,8 @@ app {
 
     overlay {
       @include flex-settings(0 0 40px);
+
+      background: grey;
     }
   }
 
